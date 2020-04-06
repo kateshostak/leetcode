@@ -5,27 +5,25 @@ import pdb
 
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        anagrams = []
-        is_marked = [0]*len(strs)
-        for i in range(len(strs)):
-            if not is_marked[i]:
-                tmp_i = Counter(strs[i])
-                tmp_angr = [strs[i]]
-                is_marked[i] = 1
+        anagrams = {}
+        for word in strs:
+            tmp = self.letter_counter(word)
+            if tmp in anagrams:
+                anagrams[tmp].append(word)
             else:
-                continue
-            for j in range(i + 1, len(strs)):
-                tmp_j = Counter(strs[j])
-                if tmp_i == tmp_j:
-                    tmp_angr.append(strs[j])
-                    is_marked[j] = 1
-            anagrams.append(tmp_angr)
-        return anagrams
+                anagrams[tmp] = [word]
+        return list(anagrams.values())
+
+    def letter_counter(self, word):
+        tmp = Counter(word)
+        s = ''
+        for l in sorted(tmp):
+            s += l + str(tmp[l])
+        return s
 
 
 def main():
     strs = ["eat", "tea", "tan", "ate", "nat", "bat"]
-    # strs = ["",""]
     s = Solution()
     res = s.groupAnagrams(strs)
     print(res)
