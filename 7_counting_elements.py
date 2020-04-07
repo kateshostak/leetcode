@@ -4,8 +4,12 @@ from typing import List
 class Solution:
     def countElements(self, arr: List[int]) -> int:
         count = 0
+        arr2 = [0]*1001
         for n in arr:
-            if n + 1 in arr:
+            arr2[n] = 1
+
+        for n in arr:
+            if arr2[n+1]:
                 count += 1
         return count
 
