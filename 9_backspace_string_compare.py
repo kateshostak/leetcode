@@ -4,31 +4,23 @@ import pdb
 
 class Solution:
     def backspaceCompare(self, S: str, T: str) -> bool:
-        i = len(S) - 1
-        j = len(T) - 1
-        are_equal = True
-        while are_equal and i >= 0 and j >= 0:
-            if S[i] == '#':
-                count_i = 0
-                while S[i] == '#' and i >= 0:
-                    count_i += 1
-                    i -= 1
-                i -= count_i
+        s_stack = []
+        t_stack = []
+        for l in S:
+            if l == '#':
+                if len(s_stack):
+                    s_stack.pop()
+            else:
+                s_stack.append(l)
 
-            if T[j] == '#':
-                count_j = 0
-                while T[j] == '#' and j >= 0:
-                    count_j += 1
-                    j -= 1
-                j -= count_j
+        for l in T:
+            if l == '#':
+                if len(t_stack):
+                    t_stack.pop()
+            else:
+                t_stack.append(l)
 
-            if i >= 0 and j >= 0:
-                if S[i] != T[j]:
-                    are_equal = False
-                i -= 1
-                j -= 1
-
-        return are_equal
+        return s_stack == t_stack
 
 
 def main():
@@ -47,6 +39,11 @@ def main():
     S = "bxj##tw"
     T = "bxo#j##tw"
 
+    S = "ab##"
+    T = "c#b#"
+
+    S = "y#fo##f"
+    T = "y#f#o##f"
     s = Solution()
     print(s.backspaceCompare(S, T))
 
