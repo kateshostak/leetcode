@@ -4,21 +4,21 @@ import pdb
 
 class Solution:
     def findMaxLength(self, nums: List[int]) -> int: # noqa
-        max_ = 0
-        for i in range(len(nums) - 1):
+        arr = [-2]*(2*len(nums)+1)
+        arr[len(nums)] = -1
+        maxlen = count = 0
+        for i in range(len(nums)):
             if nums[i] == 0:
-                sum_ = -1
+                count -= 1
             else:
-                sum_ = 1
-            for j in range(i + 1, len(nums)):
-                if nums[j] == 0:
-                    sum_ -= 1
-                else:
-                    sum_ += 1
-                if sum_ == 0:
-                    tmp_max = j - i + 1
-                    max_ = max(tmp_max, max_)
-        return max_
+                count += 1
+
+            if arr[count + len(nums)] >= -1:
+                maxlen = max(maxlen, i - arr[count + len(nums)])
+            else:
+                arr[count + len(nums)] = i
+
+        return maxlen
 
 def main():
     arr = [0, 1]
