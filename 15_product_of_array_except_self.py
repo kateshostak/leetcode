@@ -3,23 +3,18 @@ from typing import List
 
 class Solution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
-        pref_arr = []
-        suff_arr = []
+        output = []
         preff = 1
         suff = 1
 
-        for elem in nums:
-            pref_arr.append(preff)
-            preff *= elem
-
         for elem in reversed(nums):
-            suff_arr.append(suff)
+            output.append(suff)
             suff *= elem
-        suff_arr = list(reversed(suff_arr))
+        output = list(reversed(output))
 
-        output = []
-        for preff,suff in zip(pref_arr, suff_arr):
-            output.append(preff*suff)
+        for i in range(len(output)):
+            output[i] *= preff
+            preff*= nums[i]
 
         return output
 
