@@ -1,4 +1,3 @@
-import pdb
 from typing import List
 
 
@@ -21,10 +20,12 @@ class Solution:
                     else:
                         start = end = i
 
+
 def main():
-    nums = [0,1,0,3,12]
-    s = Solution()
-    s.moveZeroes(nums)
+    # Input: [0,1,0,3,12]
+    # Output: [1,3,12,0,0]
+    nums = [0, 1, 0, 3, 12]
+    Solution().moveZeroes(nums)
     print(nums)
 
 

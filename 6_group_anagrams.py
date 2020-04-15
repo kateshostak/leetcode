@@ -1,6 +1,5 @@
 from typing import List
 from collections import Counter
-import pdb
 
 
 class Solution:
@@ -23,10 +22,15 @@ class Solution:
 
 
 def main():
+    # Input: ["eat", "tea", "tan", "ate", "nat", "bat"],
+    # Output:
+    # [
+    #   ["ate","eat","tea"],
+    #   ["nat","tan"],
+    #   ["bat"]
+    # ]
     strs = ["eat", "tea", "tan", "ate", "nat", "bat"]
-    s = Solution()
-    res = s.groupAnagrams(strs)
-    print(res)
+    print(Solution().groupAnagrams(strs))
 
 
 if __name__ == '__main__':

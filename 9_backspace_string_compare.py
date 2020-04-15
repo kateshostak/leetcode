@@ -1,51 +1,42 @@
 from typing import List
-import pdb
 
 
 class Solution:
     def backspaceCompare(self, S: str, T: str) -> bool:
         s_stack = []
         t_stack = []
-        for l in S:
-            if l == '#':
+        for letter in S:
+            if letter == '#':
                 if len(s_stack):
                     s_stack.pop()
             else:
-                s_stack.append(l)
+                s_stack.append(letter)
 
-        for l in T:
-            if l == '#':
+        for letter in T:
+            if letter == '#':
                 if len(t_stack):
                     t_stack.pop()
             else:
-                t_stack.append(l)
+                t_stack.append(letter)
 
         return s_stack == t_stack
 
 
 def main():
-    # S = "ab#c"
-    # T = "ad#c"
+    # Input: S = "ab#c", T = "ad#c"
+    # Output: true
 
-    #S = "ab##"
-    #T = "c#d#"
+    # Input: S = "ab##", T = "c#d#"
+    # Output: true
 
-    # S = "a##c"
-    # T = "#a#c"
+    # Input: S = "a##c", T = "#a#c"
+    # Output: true
 
-    # S = "a#c"
-    # T = "b"
-
-    S = "bxj##tw"
-    T = "bxo#j##tw"
-
-    S = "ab##"
-    T = "c#b#"
-
-    S = "y#fo##f"
-    T = "y#f#o##f"
-    s = Solution()
-    print(s.backspaceCompare(S, T))
+    # Input: S = "a#c", T = "b"
+    # Output: false
+    S = "ab#c"
+    T = "ad#c"
+    print(Solution().backspaceCompare(S, T))
 
 
 if __name__ == '__main__':

@@ -16,13 +16,15 @@ class Solution:
 
 
 def main():
+    # Input: s = "abc", shift = [[0,1],[1,2]]
+    # Output: "cab"
+
+    # Input: s = "abcdefg", shift = [[1,1],[1,1],[0,2],[1,3]]
+    # Output: "efgabcd"
     s = "abcdefg"
-    shift = [[1,1],[1,1],[0,2],[1,3]]
-    sol = Solution()
-    print(sol.stringShift(s, shift))
+    shift = [[1, 1], [1, 1], [0, 2], [1, 3]]
+    print(Solution().stringShift(s, shift))
 
 
 if __name__ == '__main__':
     main()
-
-

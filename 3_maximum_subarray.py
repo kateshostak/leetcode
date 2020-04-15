@@ -11,9 +11,10 @@ class Solution:
 
 
 def main():
-    nums = [-2,1,-3,4,-1,2,1,-5,4]
-    s = Solution()
-    print(s.maxSubArray(nums))
+    # Input: [-2,1,-3,4,-1,2,1,-5,4],
+    # Output: 6
+    nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+    print(Solution().maxSubArray(nums))
 
 
 if __name__ == '__main__':

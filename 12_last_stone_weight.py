@@ -9,15 +9,13 @@ class Solution:
             stones[i+1] = abs(stones[i] - stones[i+1])
         return(stones.pop())
 
+
 def main():
-    stones = [2,7,4,1,8,1]
-    stones = [7,6,7,6,9]
-    s = Solution()
-    print(s.lastStoneWeight(stones))
+    # Input: [2,7,4,1,8,1]
+    # Output: 1
+    stones = [2, 7, 4, 1, 8, 1]
+    print(Solution().lastStoneWeight(stones))
 
 
 if __name__ == '__main__':
     main()
-
-
-

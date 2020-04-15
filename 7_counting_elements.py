@@ -15,12 +15,19 @@ class Solution:
 
 
 def main():
-    arr = [1,2,3]
-    arr = [1,3,2,3,5,0]
-    arr = [1,1,3,3,5,5,7,7]
-    arr = [1,1,2,2]
-    print(Solution().countElements(arr))
+    # Input: arr = [1,2,3]
+    # Output: 2
 
+    # Input: arr = [1,1,3,3,5,5,7,7]
+    # Output: 0
+
+    # Input: arr = [1,3,2,3,5,0]
+    # Output: 3
+
+    # Input: arr = [1,1,2,2]
+    # Output: 2
+    arr = [1, 2, 3]
+    print(Solution().countElements(arr))
 
 
 if __name__ == '__main__':

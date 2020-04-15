@@ -1,5 +1,4 @@
 from typing import List
-import pdb
 
 
 class Solution:
@@ -21,12 +20,13 @@ class Solution:
         return maxlen
 
 def main():
+    # Input: [0,1]
+    # Output: 2
+
+    # Input: [0,1,0]
+    # Output: 2
     arr = [0, 1]
-    # arr = [0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1]
-    # arr = [0, 1, 1]
-    # arr = [0, 1, 0, 1]
-    s = Solution()
-    print(s.findMaxLength(arr))
+    print(Solution().findMaxLength(arr))
 
 
 if __name__ == '__main__':
