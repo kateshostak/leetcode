@@ -3,39 +3,25 @@ from typing import List
 
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
-        islands = {}
-        island_n = 0
-        for i, row in enumerate(grid):
-            for j, elem in enumerate(row):
-                if elem == '1':
-                    a = i, j
-                    a1 = i - 1, j
-                    a2 = i + 1, j
-                    a3 = i, j - 1
-                    a4 = i, j + 1
+        if not grid:
+            return 0
 
-                    if a1 in islands:
-                        islands[a] = islands[a1]
-                    elif a2 in islands:
-                        islands[a] = islands[a2]
-                    elif a3 in islands:
-                        islands[a] = islands[a3]
-                    elif a4 in islands:
-                        islands[a] = islands[a4]
-                    else:
-                        island_n += 1
-                        islands[a] = island_n
+        count = 0
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == '1':
+                    self.dfs(grid, i, j)
+                    count += 1
+        return count
 
-        grouped_islands = {}
-        for key, elem in islands.items():
-            if elem in grouped_islands:
-                grouped_islands[elem].append(key)
-            else:
-                grouped_islands[elem] = [key]
-
-        print(grouped_islands)
-        return len(set(islands.values()))
-
+    def dfs(self, grid, i, j):
+        if i<0 or j<0 or i>=len(grid) or j>=len(grid[0]) or grid[i][j] != '1':
+            return
+        grid[i][j] = '#'
+        self.dfs(grid, i+1, j)
+        self.dfs(grid, i-1, j)
+        self.dfs(grid, i, j+1)
+        self.dfs(grid, i, j-1)
 
 def main():
     # Input:
