@@ -6,8 +6,8 @@ class Solution:
     def search(self, nums: List[int], target: int) -> int:
         if not nums:
             return -1
-        min_elem = min(nums)
-        min_elem_index = nums.index(min_elem)
+        min_elem_index = self.get_min_index(nums)
+
         ind = -1
 
         def bin_search(i, j):
@@ -31,6 +31,16 @@ class Solution:
             ind = bin_search(min_elem_index, len(nums)-1)
         return ind
 
+    def get_min_index(self, nums):
+        i = 0
+        j = len(nums) - 1
+        while j > i:
+            mid = (i + j)//2
+            if nums[mid] > nums[j]:
+                i = mid + 1
+            else:
+                j = mid
+        return i
 
 def main():
     # Input: nums = [4,5,6,7,0,1,2], target = 0
@@ -38,20 +48,9 @@ def main():
 
     # Input: nums = [4,5,6,7,0,1,2], target = 3
     # Output: -1
-    #nums = [4, 5, 6, 7, 0, 1, 2]
-    #target = 5
 
-    # nums = [4,5,6,7,0,1,2]
-    # nums = []
-    # nums = [1, 3]
-
-    nums = [3, 5, 1]
-    target = 5
-
-    nums = [4,5,6,7,0,1,2]
-    target = 2
-    nums = [1, 3]
-    target = 3
+    nums = [4, 5, 6, 7, 0, 1, 2]
+    target = 0
     print(Solution().search(nums, target))
 
 
