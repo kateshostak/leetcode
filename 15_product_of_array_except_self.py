@@ -14,9 +14,10 @@ class Solution:
 
         for i in range(len(output)):
             output[i] *= preff
-            preff*= nums[i]
+            preff *= nums[i]
 
         return output
+
 
 def main():
     # Input:  [1,2,3,4]
