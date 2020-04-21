@@ -1,11 +1,3 @@
-from typing import List
-import pdb
-# """
-# This is BinaryMatrix's API interface.
-# You should not implement it, or speculate about its implementation
-# """
-
-
 class BinaryMatrix():
     def __init__(self, matrix):
         self.matrix = matrix
@@ -50,9 +42,18 @@ class Solution:
 
 
 def main():
-    mat= [[0, 0, 0, 1], [0, 0, 1, 1], [0, 1, 1, 1]]
-    mat = [[0,0],[0,1]]
-    mat = [[0,0],[1,1]]
+    # Input: mat = [[0,0],[1,1]]
+    # Output: 0
+
+    # Input: mat = [[0,0],[0,1]]
+    # Output: 1
+
+    # Input: mat = [[0,0],[0,0]]
+    # Output: -1
+
+    # Input: mat = [[0,0,0,1],[0,0,1,1],[0,1,1,1]]
+    # Output: 1
+    mat = [[0, 0, 0, 1], [0, 0, 1, 1], [0, 1, 1, 1]]
     print(Solution().leftMostColumnWithOne(BinaryMatrix(mat)))
 
 
