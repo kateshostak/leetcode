@@ -1,31 +1,34 @@
 from typing import List
+import pdb
 
 
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
-        start = 0
         n = 0
-        tmp_sum = 0
-        for i in range(len(nums)):
-            if nums[i] > k:
-                start = i + 1
-                tmp_sum = 0
-                continue
-
-            tmp_sum += nums[i]
-            if tmp_sum == k:
+        tmp = 0
+        sums = []
+        for elem in nums:
+            tmp += elem
+            if tmp == k:
                 n += 1
-            elif tmp_sum > k:
-                while tmp_sum > k and start <= i:
-                    tmp_sum -= nums[start]
-                    start += 1
-                if tmp_sum == k:
+            sums.append(tmp)
+
+        for i in range(len(nums)):
+            for j in range(i + 1, len(nums)):
+                sums[j] -= nums[i]
+                if sums[j] == k:
                     n += 1
         return n
 
 def main():
     nums = [1, 1, 1]
     k = 2
+
+    # nums = [-1, -1, 1]
+    # k = 0
+
+    # nums = [100,1,2,3,4]
+    # k = 6
     print(Solution().subarraySum(nums, k))
 
 
