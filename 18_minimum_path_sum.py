@@ -1,38 +1,17 @@
 from typing import List
 
-
 class Solution:
-    def minPathSum(self, grid: List[List[int]]) -> int:
-        m = len(grid) - 1
-        n = len(grid[0]) - 1
-        self.sum_ = 0
-        sums = []
-        sum_ = 0
-        self.min_sum = None
-        def traverse(i, j, sum_):
-            if i == m and j == n:
-                sum_ += grid[i][j]
-                if not self.min_sum:
-                    self.min_sum = sum_
-                else:
-                    if sum_ < self.min_sum:
-                        self.min_sum = sum_
-                sums.append(sum_)
-                return
-            sum_ += grid[i][j]
-            if self.min_sum:
-                if sum_ > self.min_sum:
-                    print('r')
-                    return
-            if j + 1 <= n:
-                traverse(i, j+1, sum_)
-            if i + 1 <= m:
-                traverse(i+1, j, sum_)
-        traverse(0, 0, sum_)
-        print(sums)
-        return self.min_sum
-
-
+    def minPathSum(self, grid):
+        m = len(grid)
+        n = len(grid[0])
+        for i in range(1, n):
+            grid[0][i] += grid[0][i-1]
+        for i in range(1, m):
+            grid[i][0] += grid[i-1][0]
+        for i in range(1, m):
+            for j in range(1, n):
+                grid[i][j] += min(grid[i-1][j], grid[i][j-1])
+        return grid[-1][-1]
 
 def main():
     # Input:
