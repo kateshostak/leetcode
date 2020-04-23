@@ -8,13 +8,18 @@ class Solution:
         res = []
         len_ = math.floor(math.log2(n)) + 1
         mid = (2**len_ - 1)//2
+        prev_mid = 2**len_ - 1
         while len_ > 1:
-            if m > mid and n > mid:
+            print(f'mid::{mid}, prev_mid::{prev_mid}')
+            if m > mid and m <= prev_mid and n > mid and n <= prev_mid:
                 res.append(1)
+                len_ -= 1
+                mid += (2**len_)//2
             else:
                 res.append(0)
-            len_ -= 1
-            mid += (2**len_)//2
+                len_ -= 1
+                prev_mid = mid
+                mid -= (2**len_)//2
         res.append(0)
         print(res)
         return self.dec(res)
@@ -31,17 +36,6 @@ class Solution:
 def main():
     m = 6
     n = 7
-    # out = 6
-
-    #m = 2
-    #n = 6
-    # out = 0
-    # m = 5
-    # n = 7
-    # m = 0
-    # n = 0
-    m = 10
-    n = 11
     print(Solution().rangeBitwiseAnd(m, n))
 
 
