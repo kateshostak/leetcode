@@ -15,9 +15,8 @@ class Solution:
                     is_square = True
                     while is_square and j + step < len(matrix[i]) and i + step < len(matrix):
                         if int(matrix[i + step][j + step]):
-
                             size += 1
-                            for delta in range(step + 1):
+                            for delta in range(step):
                                 if not int(matrix[i + delta][j + step]):
                                     is_square = False
                                     size -= 1
@@ -26,14 +25,16 @@ class Solution:
                             if not is_square:
                                 break
 
-                            for delta in range(step + 1):
+                            for delta in range(step):
                                 if not int(matrix[i + step][j + delta]):
                                     is_square = False
                                     size -= 1
+                        else:
+                            is_square = False
                         step += 1
                     max_ = max(size, max_)
 
-        return max(max_*max_, min_)
+        return max_*max_
 
 def main():
     matrix = [
@@ -53,6 +54,17 @@ def main():
     # out = 4
 
     matrix = [[1, 1], [1, 1]]
+    # out = 4
+
+    matrix = [
+            [1, 0, 1, 1, 0, 1],
+            [1, 1, 1, 1, 1, 1],
+            [0, 1, 1, 0, 1, 1],
+            [1, 1, 1, 0, 1, 0],
+            [0, 1, 1, 1, 1, 1],
+            [1, 1, 0, 1, 1, 1]
+            ]
+    # out = 4
     print(Solution().maximalSquare(matrix))
 
 
