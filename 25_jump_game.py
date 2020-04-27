@@ -6,45 +6,54 @@ class Solution:
         if len(nums) == 1:
             return True
 
-        paths = {}
-        for i, elem in enumerate(nums[:-1]):
-            paths[i] = [i + j + 1 for j in range(elem)]
+        cache = dict()
 
-        paths_rev = {}
-        for elem, vals in paths.items():
-            for v in vals:
-                if v not in paths_rev:
-                    paths_rev[v] = [elem]
-                else:
-                    paths_rev[v].append(elem)
+        def traverse(i):
+            if i == 0:
+                return True
 
-        start = len(nums) - 1
-        end = 0
-        nodes = []
-        def traverse(start, end, nodes):
-            nodes.append(start)
-            if start not in paths_rev:
-                return None
-            if start == end:
-                return nodes
+            for j in range(i-1, -1, -1):
+                if i - j <= nums[j]:
+                    if j in cache:
+                        if cache[j]:
+                            return True
+                        continue
 
-            for node in paths_rev[start]:
-                if node not in nodes:
-                    new_path = traverse(node, end, nodes)
-                    if new_path:
-                        return new_path
-            return None
-        traverse(start, end, nodes)
-        if end in nodes and start in nodes:
-            return True
-        else:
+                    cache[j] = traverse(j)
+                    if cache[j]:
+                        return True
+
+            cache[i] = False
             return False
 
+        return traverse(len(nums)-1)
+
+
 def main():
+    arr = [5, 9, 3, 2, 1, 0, 2, 3, 3, 1, 0, 0]
+    print("got:", Solution().canJump(arr), "want: true")
+
+    arr = [0, 2, 3]
+    print("got:", Solution().canJump(arr), "want: false")
+
     arr = [2, 3, 1, 1, 4]
-    # arr = [3, 2, 1, 0, 4]
-    # arr = [0, 2, 3]
-    print(Solution().canJump(arr))
+    print("got:", Solution().canJump(arr), "want: true")
+
+    arr = [3, 2, 1, 0, 4]
+    print("got:", Solution().canJump(arr), "want: false")
+
+    arr = [2, 0]
+    print("got:", Solution().canJump(arr), "want: true")
+
+    with open("arr.txt", "r") as f:
+        import json
+        arr = json.loads(f.read())
+    print("got:", Solution().canJump(arr), "want: ?")
+
+    with open("arr.txt", "r") as f:
+        import json
+        arr = json.loads(f.read())
+    print("got:", Solution().canJump(list(reversed(arr))), "want: ?")
 
 
 if __name__ == '__main__':
