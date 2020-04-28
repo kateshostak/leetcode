@@ -1,5 +1,4 @@
 from typing import List
-import pdb
 
 
 class Node():
@@ -15,7 +14,8 @@ class Node():
             prev = str(prev)
         if self.next:
             next_ = str(prev)
-        return prev + ' ' +  str(self.x) + ' ' + next_
+        return prev + ' ' + str(self.x) + ' ' + next_
+
 
 class FirstUnique:
     def __init__(self, nums: List[int]):
@@ -50,20 +50,21 @@ class FirstUnique:
                     self.first_unique = -1
             else:
                 if x in self.nums_to_nodes:
-                    tmp = self.nums_to_nodes[x]
-                    if tmp:
-                        tmp.prev.next = tmp.next
-                        self.nums_to_nodes[x] = None
+                    if self.nums_to_nodes[x]:
+                        tmp = self.nums_to_nodes[x]
+                        if tmp:
+                            prev = tmp.prev
+                            if prev:
+                                tmp.prev.next = tmp.next
+                            self.nums_to_nodes[x] = None
                 else:
+                    if self.first_unique == -1:
+                        self.first_unique = x
                     tmp = Node(x)
                     self.tail.next = tmp
                     tmp.prev = self.tail
                     self.tail = self.tail.next
                     self.nums_to_nodes[x] = self.tail
-# Your FirstUnique object will be instantiated and called as such:
-# obj = FirstUnique(nums)
-# param_1 = obj.showFirstUnique()
-# obj.add(value)
 
 
 def main():
@@ -72,6 +73,19 @@ def main():
     res = []
     f = FirstUnique([2, 3, 5])
     # out = [2,null,2,null,3,null,-1]
+
+    comms = ["showFirstUnique", "add", "add", "add", "add", "add", "showFirstUnique"]
+    args = [[], [7], [3], [3], [7], [17], []]
+    f = FirstUnique([7, 7, 7, 7, 7, 7])
+    # out = [null,-1,null,null,null,null,null,17]
+    for com, arg in zip(comms, args):
+        res.append(getattr(f, com)(*arg))
+    print(res)
+
+    comms = ["showFirstUnique","add","showFirstUnique"]
+    args = [[], [809], []]
+    f = FirstUnique([809])
+    # out = [809,null,-1]
     for com, arg in zip(comms, args):
         res.append(getattr(f, com)(*arg))
     print(res)
