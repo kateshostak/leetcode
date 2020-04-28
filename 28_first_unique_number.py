@@ -1,4 +1,5 @@
 from typing import List
+import pdb
 
 
 class Node():
@@ -33,38 +34,42 @@ class FirstUnique:
             tmp = tmp.next
 
     def showFirstUnique(self) -> int:
-        return self.first_unique
+        return self.first_unique.x
 
     def add(self, x: int) -> None:
         if not self.head:
             self.head = Node(x)
             self.tail = self.head
             self.nums_to_nodes[x] = self.head
-            self.first_unique = x
+            self.first_unique = self.head
         else:
-            if x == self.first_unique:
-                tmp = self.nums_to_nodes[x].next
+            if x in self.nums_to_nodes:
+                tmp = self.nums_to_nodes[x]
+                if x == self.first_unique.x:
+                    tmp = self.first_unique.next
+                    if tmp:
+                        self.first_unique = tmp
+                    else:
+                        self.first_unique = Node(-1)
                 if tmp:
-                    self.first_unique = tmp.x
-                else:
-                    self.first_unique = -1
+                    prev = tmp.prev
+                    next_ = tmp.next
+                    if prev:
+                        prev.next = tmp.next
+                        if next_:
+                            next_.prev = prev
+                    else:
+                        self.head = next_
+                    self.nums_to_nodes[x] = None
+
             else:
-                if x in self.nums_to_nodes:
-                    if self.nums_to_nodes[x]:
-                        tmp = self.nums_to_nodes[x]
-                        if tmp:
-                            prev = tmp.prev
-                            if prev:
-                                tmp.prev.next = tmp.next
-                            self.nums_to_nodes[x] = None
-                else:
-                    if self.first_unique == -1:
-                        self.first_unique = x
-                    tmp = Node(x)
-                    self.tail.next = tmp
-                    tmp.prev = self.tail
-                    self.tail = self.tail.next
-                    self.nums_to_nodes[x] = self.tail
+                tmp = Node(x)
+                if self.first_unique.x == -1:
+                    self.first_unique = tmp
+                self.tail.next = tmp
+                tmp.prev = self.tail
+                self.tail = tmp
+                self.nums_to_nodes[x] = tmp
 
 
 def main():
@@ -73,21 +78,28 @@ def main():
     res = []
     f = FirstUnique([2, 3, 5])
     # out = [2,null,2,null,3,null,-1]
+    tmp = []
+    for com, arg in zip(comms, args):
+        tmp.append(getattr(f, com)(*arg))
+    res.append(tmp)
 
     comms = ["showFirstUnique", "add", "add", "add", "add", "add", "showFirstUnique"]
     args = [[], [7], [3], [3], [7], [17], []]
     f = FirstUnique([7, 7, 7, 7, 7, 7])
     # out = [null,-1,null,null,null,null,null,17]
+    tmp = []
     for com, arg in zip(comms, args):
-        res.append(getattr(f, com)(*arg))
-    print(res)
+        tmp.append(getattr(f, com)(*arg))
+    res.append(tmp)
 
-    comms = ["showFirstUnique","add","showFirstUnique"]
+    comms = ["showFirstUnique", "add", "showFirstUnique"]
     args = [[], [809], []]
     f = FirstUnique([809])
     # out = [809,null,-1]
+    tmp = []
     for com, arg in zip(comms, args):
-        res.append(getattr(f, com)(*arg))
+        tmp.append(getattr(f, com)(*arg))
+    res.append(tmp)
     print(res)
 
 
