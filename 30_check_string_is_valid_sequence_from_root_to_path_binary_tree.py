@@ -1,5 +1,4 @@
 from typing import List
-import pdb
 
 
 class TreeNode:
@@ -15,7 +14,10 @@ class Solution:
 
         def traverse(node, i):
             if not node:
-                self.isValid = True
+                return
+            elif not node.left and not node.right:
+                if arr[i] == node.val and i == len(arr) - 1:
+                    self.isValid = True
                 return
             else:
                 if i < len(arr) - 1 and arr[i] == node.val:
@@ -24,7 +26,7 @@ class Solution:
                 else:
                     return
         traverse(root, 0)
-        return  self.isValid
+        return self.isValid
 
 
 def main():
@@ -40,23 +42,25 @@ def main():
     root.right.left = TreeNode(0)
 
     arr = [0, 1, 0, 1]
-    # out = true
-    arr = [0, 0, 1]
-    # out = false
-    arr = [0, 1, 1]
-    # out = false
-    arr = [0, 1, 0, 0]
-    # out = true
-    arr = [0, 0, 0]
-    # out = true
-    print(Solution().isValidSequence(root, arr))
+    res = (Solution().isValidSequence(root, arr))
+    print(f'expected: true, got:{res}')
 
-    # tree = [8,null,5,4,null,4]
-    # arr = [8]
-    # out = false
-    root = TreeNode(8)
-    root.right = TreeNode(5)
-    print(Solution().isValidSequence(root, arr))
-    arr = [8]
+    arr = [0, 0, 1]
+    res = (Solution().isValidSequence(root, arr))
+    print(f'expected: false, got:{res}')
+
+    arr = [0, 1, 1]
+    res = (Solution().isValidSequence(root, arr))
+    print(f'expected: false, got:{res}')
+
+    arr = [0, 1, 0, 0]
+    res = (Solution().isValidSequence(root, arr))
+    print(f'expected: false, got:{res}')
+
+    arr = [0, 0, 0]
+    res = (Solution().isValidSequence(root, arr))
+    print(f'expected: true, got:{res}')
+
+
 if __name__ == '__main__':
     main()
