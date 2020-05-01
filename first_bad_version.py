@@ -6,28 +6,24 @@
 
 class Solution:
     def firstBadVersion(self, n):
-        """
-        :type n: int
-        :rtype: int
-        """
         self.isBadVersion = lambda x: x >= 4
 
-        if self.isBadVersion(0):
+        if self.isBadVersion(1):
             return 1
 
         i = 1
-        while i < n and not self.isBadVersion(i):
+        while i <= n and not self.isBadVersion(i):
             i *= 2
 
         start = i//2
-        end = min(i, n - 1)
+        end = min(i, n)
         while end - start > 1:
             mid = (start + end)//2
-            print(f'start {start}::end {end}::mid {mid}')
             if not self.isBadVersion(mid):
                 start = mid
             else:
                 end = mid
+
         if self.isBadVersion(start):
             return start
         return end
