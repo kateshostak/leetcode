@@ -1,75 +1,26 @@
 from typing import List
-import pdb
-
-
-class Node():
-    def __init__(self, x):
-        self.x = x
-        self.next = None
-        self.prev = None
-
-    def __repr__(self):
-        prev = 'None'
-        next_ = 'None'
-        if self.prev:
-            prev = str(prev)
-        if self.next:
-            next_ = str(prev)
-        return prev + ' ' + str(self.x) + ' ' + next_
 
 
 class FirstUnique:
     def __init__(self, nums: List[int]):
-        self.nums_to_nodes = {}
-        self.head = None
-        self.tail = None
-        self.first_unique = -1
+        self.nums = []
+        self.i = -1
+        self.d = {}
         for n in nums:
             self.add(n)
 
-    def print(self):
-        tmp = self.head
-        while tmp:
-            print(tmp.x)
-            tmp = tmp.next
-
     def showFirstUnique(self) -> int:
-        return self.first_unique.x
+        while self.i < len(self.nums) and self.d[self.nums[self.i]] == 1:
+            self.i += 1
+            return self.nums[self.i]
+        return -1
 
     def add(self, x: int) -> None:
-        if not self.head:
-            self.head = Node(x)
-            self.tail = self.head
-            self.nums_to_nodes[x] = self.head
-            self.first_unique = self.head
+        self.nums.append(x)
+        if x in self.d:
+            self.d[x] += 1
         else:
-            if x in self.nums_to_nodes:
-                tmp = self.nums_to_nodes[x]
-                if x == self.first_unique.x:
-                    tmp = self.first_unique.next
-                    if tmp:
-                        self.first_unique = tmp
-                    else:
-                        self.first_unique = Node(-1)
-                if tmp:
-                    prev = tmp.prev
-                    next_ = tmp.next
-                    if prev:
-                        prev.next = tmp.next
-                        if next_:
-                            next_.prev = prev
-                    else:
-                        self.head = next_
-                    self.nums_to_nodes[x] = None
-
-            else:
-                tmp = Node(x)
-                if self.first_unique.x == -1:
-                    self.first_unique = tmp
-                self.tail.next = tmp
-                tmp.prev = self.tail
-                self.tail = tmp
-                self.nums_to_nodes[x] = tmp
+            self.d[x] = 1
 
 
 def main():

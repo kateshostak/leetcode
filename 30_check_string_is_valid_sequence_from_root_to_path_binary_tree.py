@@ -10,23 +10,22 @@ class TreeNode:
 
 class Solution:
     def isValidSequence(self, root: TreeNode, arr: List[int]) -> bool:
-        self.isValid = False
 
         def traverse(node, i):
             if not node:
-                return
-            elif not node.left and not node.right:
+                return False
+
+            if not node.left and not node.right:
                 if arr[i] == node.val and i == len(arr) - 1:
-                    self.isValid = True
-                return
+                    return True
             else:
                 if i < len(arr) - 1 and arr[i] == node.val:
-                    traverse(node.left, i + 1)
-                    traverse(node.right, i + 1)
-                else:
-                    return
-        traverse(root, 0)
-        return self.isValid
+                    if traverse(node.left, i + 1):
+                        return True
+                    return traverse(node.right, i + 1)
+            return False
+
+        return traverse(root, 0)
 
 
 def main():

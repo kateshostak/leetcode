@@ -5,36 +5,59 @@ import pdb
 class Solution:
     def maximalSquare(self, matrix: List[List[str]]) -> int:
         max_ = 0
-        min_ = 0
+        matrix2 = []
+        matrix3 = []
         for i in range(len(matrix)):
+            tmp = []
+            tmp2 = []
+            sum_ = 0
             for j in range(len(matrix[i])):
-                if int(matrix[i][j]):
+                if matrix[i][j] == 1:
+                    sum_ += 1
+                else:
+                    sum_ = 0
+                tmp.append(sum_)
+                tmp2.append(sum_)
+            matrix2.append(tmp)
+            matrix3.append(tmp2)
 
+        for j in range(len(matrix[0])):
+            sum_ = 0
+            tmp = []
+            for i in range(len(matrix)):
+                if matrix[i][j] == 1:
+                    sum_ += 1
+                else:
+                    sum_ = 0
+                matrix3[i][j] = sum_
+
+                if matrix3[i][j] >= matrix2[i][j]:
+                    is_square = True
                     size = 1
                     step = 1
-                    is_square = True
-                    while is_square and j + step < len(matrix[i]) and i + step < len(matrix):
-                        if int(matrix[i + step][j + step]):
-                            size += 1
-                            for delta in range(step):
-                                if not int(matrix[i + delta][j + step]):
-                                    is_square = False
-                                    size -= 1
-                                    break
-
-                            if not is_square:
-                                break
-
-                            for delta in range(step):
-                                if not int(matrix[i + step][j + delta]):
-                                    is_square = False
-                                    size -= 1
-                        else:
+                    while is_square and i - step == 0 and j - step >= 0:
+                        if matrix3[i - step][j - step] != matrix2[i - step][j- step]:
                             is_square = False
+                        else:
+                            size += 1
                         step += 1
-                    max_ = max(size, max_)
+                    max_ = max(max_, size)
+        for row in matrix:
+            print(row)
+
+        print()
+
+        for row in matrix2:
+            print(row)
+
+        print()
+
+        for row in matrix3:
+            print(row)
 
         return max_*max_
+
+
 
 def main():
     matrix = [
@@ -43,7 +66,7 @@ def main():
         [1, 1, 1, 1, 1],
         [1, 0, 0, 1, 0],
         ]
-    # out = 2*2
+    # out = 4
 
     matrix = [
             ["1", "0", "1", "0", "0"],
@@ -65,6 +88,7 @@ def main():
             [1, 1, 0, 1, 1, 1]
             ]
     # out = 4
+
     print(Solution().maximalSquare(matrix))
 
 
