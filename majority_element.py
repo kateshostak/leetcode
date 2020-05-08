@@ -8,7 +8,7 @@ class Solution:
             if n in d:
                 d[n] += 1
             else:
-               d[n] = 1
+                d[n] = 1
 
         return max(d, key=lambda x: d[x])
 
