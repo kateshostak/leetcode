@@ -10,28 +10,24 @@ class TreeNode:
 
 class Solution:
     def isCousins(self, root: TreeNode, x: int, y: int) -> bool:
-        d = defaultdict(int)
+        d = defaultdict(list)
 
         def traverse(node, parent, i):
             if not node:
                 return
-            print(f'node::{node.val}, i::{i}')
             if node.val == x or node.val == y:
-                d[parent.val] = i
+                d[i].append(parent)
                 return
 
             traverse(node.left, node, i + 1)
             traverse(node.right, node, i + 1)
 
         traverse(root, None, 0)
-        print(d.items())
-        if len(d) < 2:
+        if len(d) > 1:
             return False
 
-
-        if d.popitem()[1] == d.popitem()[1]:
-            return True
-        return False
+        p1, p2 = d.popitem()[1]
+        return p1 is not p2
 
 
 def main():
@@ -52,7 +48,6 @@ def main():
     x = 5
     y = 4
     res = Solution().isCousins(root, x, y)
-    print(root.val)
     print(f'expected::True, got::{res}')
 
     root = TreeNode(1)
