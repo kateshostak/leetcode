@@ -4,22 +4,16 @@ from typing import List
 class Solution:
     def floodFill(self, image: List[List[int]], sr: int, sc: int, newColor: int) -> List[List[int]]:
         color = image[sr][sc]
-        checked_image = []
-        for row in image:
-            tmp_row = []
-            for columnb in row:
-                tmp_row.append('*')
-            checked_image.append(tmp_row)
 
         def traverse(r, c):
-            if r >= len(image) or r < 0 or c >= len(image[0]) or c < 0 or image[r][c] != color or checked_image[r][c] == '#':
+            if r >= len(image) or r < 0 or c >= len(image[0]) or c < 0 or image[r][c] != color or image[r][c] == -1:
                 return
-            image[r][c] = newColor
-            checked_image[r][c] = '#'
+            image[r][c] = -1
             traverse(r, c + 1)
             traverse(r, c - 1)
             traverse(r + 1, c)
             traverse(r - 1, c)
+            image[r][c] = newColor
         traverse(sr, sc)
         return image
 
