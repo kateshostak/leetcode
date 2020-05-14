@@ -3,14 +3,10 @@ from typing import List
 
 class Solution:
     def singleNonDuplicate(self, nums: List[int]) -> int:
+        if len(nums) == 1:
+            return nums[0]
 
         def traverse(start, end):
-            if end - start <= 2:
-                print(f'st::{start}, end::{end}')
-                res = nums[start]
-                for i in range(start + 1, end + 1):
-                    res ^= nums[i]
-                return res
             mid = (start + end)//2
             print(f'st::{start}, mid::{mid}, end::{end}')
             print(nums[mid], nums[mid + 1])
@@ -29,7 +25,7 @@ class Solution:
                 else:
                     return nums[mid]
             return res
-        return traverse(0, len(nums))
+        return traverse(0, len(nums) - 1)
 
 
 def main():
@@ -40,6 +36,22 @@ def main():
     arr = [3, 3, 7, 7, 10, 11, 11]
     res = Solution().singleNonDuplicate(arr)
     print(f'expected::10, got::{res}')
+    print()
+    arr = [0, 1, 1, 2, 2, 5, 5]
+    res = Solution().singleNonDuplicate(arr)
+    print(f'expected::0, got::{res}')
+    print()
+    arr = [7, 7, 10, 11, 11, 12, 12]
+    res = Solution().singleNonDuplicate(arr)
+    print(f'expected::10, got::{res}')
+    print()
+    arr = [0, 1, 1, 2, 2, 12, 12]
+    res = Solution().singleNonDuplicate(arr)
+    print(f'expected::0, got::{res}')
+    print()
+    arr = [1]
+    res = Solution().singleNonDuplicate(arr)
+    print(f'expected::1, got::{res}')
 
 
 if __name__ == '__main__':
