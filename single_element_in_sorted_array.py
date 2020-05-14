@@ -14,10 +14,20 @@ class Solution:
             mid = (start + end)//2
             print(f'st::{start}, mid::{mid}, end::{end}')
             print(nums[mid], nums[mid + 1])
-            if nums[mid] == nums[mid + 1]:
-                res = traverse(mid, end)
+            if mid % 2 == 0:
+                if nums[mid] == nums[mid + 1]:
+                    res = traverse(mid, end)
+                elif nums[mid] == nums[mid - 1]:
+                    res = traverse(start, mid)
+                else:
+                    return nums[mid]
             else:
-                res = traverse(start, mid)
+                if nums[mid] == nums[mid + 1]:
+                    res = traverse(start, mid)
+                elif nums[mid] == nums[mid - 1]:
+                    res = traverse(mid, end)
+                else:
+                    return nums[mid]
             return res
         return traverse(0, len(nums))
 
