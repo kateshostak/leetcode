@@ -3,24 +3,15 @@ class StockSpanner:
     def __init__(self):
         self.prices = []
         self.arr = []
-        self.counter = 1
 
     def next(self, price: int) -> int:
-        if self.prices and price >= self.prices[-1]:
-            self.counter += 1
-        else:
-            self.counter = 1
+        counter = 1
+        while self.prices and self.prices[-1] <= price:
+            counter += self.arr.pop()
+            self.prices.pop()
         self.prices.append(price)
-        self.arr.append(self.counter)
-        j = len(self.prices) - 1
-        sum_ = 0
-        print(f'prices::{self.prices}')
-        print(f'arr::{self.arr}')
-        while j >= 0 and self.prices[j] <= price:
-            print(f'j::{j}, self.arr[j]::{self.arr[j]}')
-            sum_ += self.arr[j]
-            j -= self.arr[j]
-        return sum_
+        self.arr.append(counter)
+        return counter
 
 
 def main():
