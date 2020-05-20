@@ -7,27 +7,17 @@ class TreeNode:
 
 class Solution:
     def kthSmallest(self, root: TreeNode, k: int) -> int:
-        self.i = -1
-        self.res = None
+        res = []
 
         def traverse(node):
             if not node:
                 return
             traverse(node.left)
-            if self.i == k - 1:
-                self.res = node.left.val
-                return
-            self.i += 1
-            if self.i == k - 1:
-                self.res = node.val
-                return
+            res.append(node.val)
             traverse(node.right)
-            if self.i == k - 1:
-                self.res = node.right.val
-                return
-            self.i += 1
+
         traverse(root)
-        return self.res
+        return res[k - 1]
 
 
 def main():
@@ -48,6 +38,12 @@ def main():
     k = 3
     res = Solution().kthSmallest(root, k)
     print(f'expected::3 got::{res}')
+
+    root = TreeNode(2)
+    root.left = TreeNode(1)
+    k = 2
+    res = Solution().kthSmallest(root, k)
+    print(f'expected::2 got::{res}')
 
 
 if __name__ == '__main__':
