@@ -26,8 +26,8 @@ class Solution:
 
         def mark_checked(start_i, start_j, delta):
             for i in range(delta):
-                matrix[start_i + delta][start_j + i] = '#'
-                matrix[start_i + i][start_j + delta] = '#'
+                matrix[start_i + delta][start_j + i] = 2
+                matrix[start_i + i][start_j + delta] = 2
 
         for i in range(len(matrix)):
             for j in range(len(matrix[i])):
@@ -37,14 +37,21 @@ class Solution:
                     i_1 = i
                     j_1 = j
                     while k == n and i_1 < len(matrix) and j_1 < len(matrix[0]):
+                        matrix[i_1][j_1] = 2
                         mark_checked(i, j, k)
+                        print()
+                        for row in matrix:
+                            print(row)
                         k += 1
                         n = min(r_m[i_1][j_1], c_m[i_1][j_1])
                         n = min(k, n)
                         i_1 += 1
                         j_1 += 1
-                    res.append(k - 1)
-
+                    if k == n:
+                        res.append(k)
+                    else:
+                        res.append(k - 1)
+        print()
         print(res)
 
 
