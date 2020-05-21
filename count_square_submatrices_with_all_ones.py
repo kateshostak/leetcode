@@ -51,8 +51,21 @@ class Solution:
                         res.append(k)
                     else:
                         res.append(k - 1)
-        print()
+
+        def count_squares(n):
+            i = 0
+            res = 0
+            while i < n:
+                res += (n - i)*(n - i)
+                i += 1
+            return res
+
+        res2 = []
+        for elem in res:
+            res2.append(count_squares(elem))
+
         print(res)
+        print(res2)
 
 
 def main():
