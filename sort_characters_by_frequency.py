@@ -4,9 +4,19 @@ from collections import Counter
 class Solution:
     def frequencySort(self, s: str) -> str:
         c = Counter(s)
-        d = sorted(c, key=lambda x: c[x])
-        return ''.join([l*c[l] for l in d[::-1]])
+        bucket = [-1]*(len(s) + 1)
+        for l, freq in c.items():
+            if bucket[freq] == -1:
+                bucket[freq] = []
+            bucket[freq].append(l)
 
+        new_s = ''
+        for i in range(len(s) - 1, -1, -1):
+            if bucket[i] != -1:
+                for l in bucket[i]:
+                    new_s += l*i
+
+        return new_s
 
 
 def main():
