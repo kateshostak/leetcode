@@ -3,24 +3,26 @@ from typing import List
 
 class Solution:
     def intervalIntersection(self, A: List[List[int]], B: List[List[int]]) -> List[List[int]]:
-        res = [-1]*(max(A[-1][1], B[-1][1]) + 1)
-        intrvl = []
-        for start, end in A:
-            for i in range(start, end + 1):
-                res[i] = end
-
-        for start, end in B:
-            for i in range(start, end + 1):
-                if res[i] != -1:
-                    start_n = max(i, start)
-                    end_n = min(end, res[i])
-                    intrvl.append((start_n, end_n))
-                    break
-
-            for i in range(start, end + 1):
-                res[i] = max(end, res[i])
-
-        return intrvl
+        a_ind = 0
+        b_ind = 0
+        res = []
+        while a_ind < len(A) and b_ind < len(B):
+            start_a, end_a = A[a_ind]
+            start_b, end_b = B[b_ind]
+            start = max(start_a, start_b)
+            end = min(end_a, end_b)
+            if end < start:
+                if start_a < start_b:
+                    a_ind += 1
+                else:
+                    b_ind += 1
+            else:
+                res.append([start, end])
+                if start_a < start_b:
+                    a_ind += 1
+                else:
+                    b_ind += 1
+        return res
 
 
 def main():
