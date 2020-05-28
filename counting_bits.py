@@ -1,5 +1,6 @@
 from typing import List
 import math
+import pdb
 
 
 class Solution:
@@ -14,31 +15,32 @@ class Solution:
             return [0, 1, 1, 2]
 
         res = [0, 1, 1, 2]
-        start = 2
-        end = 3
+        i = 1
+        j = 2
         n = math.floor(math.log2(num)) + 1
 
-        while end <= n + 1:
+        while 2**j <= 2**n:
+            start = 2**i
+            end = 2**j - 1
             while start < end:
-                for i in range(start, end):
-                    print(start)
-                    res.append(res[i])
-                    start = (start + end)//2 + 1
+                for k in range(start, end + 1):
+                    res.append(res[k])
+                start = (start + end)//2 + 1
             res.append(res[end])
             res.append(res[-1] + 1)
-            start += 1
-            end += 1
-        return res
+            i += 1
+            j += 1
+        return res[:num + 1]
 
 
 def main():
     n = 2
-    res = Solution().countBits(n)
-    print(f'expected::[0, 1, 1], got::{res}')
+#    res = Solution().countBits(n)
+#    print(f'expected::[0, 1, 1], got::{res}')
 
     n = 5
-    res = Solution().countBits(n)
-    print(f'expected::[0, 1, 1, 2, 1, 2], got::{res}')
+#    res = Solution().countBits(n)
+#    print(f'expected::[0, 1, 1, 2, 1, 2], got::{res}')
 
     print(Solution().countBits(32))
 
