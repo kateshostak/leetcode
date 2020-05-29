@@ -1,4 +1,3 @@
-import collections
 from typing import List
 
 
@@ -6,25 +5,28 @@ class Solution(object):
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         if not prerequisites:
             return True
-        graph = collections.defaultdict(list)
+        graph = {}
         color = {}
         for u, v in prerequisites:
+            if u not in graph:
+                graph[u] = []
             graph[u].append(v)
             color[u] = 'w'
             color[v] = 'w'
 
         def dfs(node):
-            if node in color and color[node] == 'g':
+            if color[node] == 'g':
                 return True
             color[node] = 'g'
-            for elem in graph[node]:
-                if color[elem] != 'b':
-                    if dfs(elem):
-                        return True
+            if node in graph:
+                for elem in graph[node]:
+                    if color[elem] != 'b':
+                        if dfs(elem):
+                            return True
             color[node] = 'b'
             return False
 
-        return not all(dfs(node) for node in graph)
+        return not any(dfs(node) for node in graph if color[node] != 'b')
 
 
 def main():
