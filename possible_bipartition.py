@@ -1,43 +1,25 @@
 from typing import List
+import collections
 
 
 class Solution:
     def possibleBipartition(self, N: int, dislikes: List[List[int]]) -> bool:
-        N += 1
-        self.gr_A = [-1]*N
-        self.gr_B = [-1]*N
-
-        def traverse(a, b, i):
-            if self.gr_A[a] == -1 and self.gr_A[b] == -1:
-                self.gr_A[a] = 1
-                self.gr_A[b] = 0
-                self.gr_B[b] = 1
-                self.gr_B[a] = 0
-            elif self.gr_A[a] == -1:
-                if self.gr_A[b] == 0:
-                    self.gr_A[a] = 1
-                    self.gr_B[a] = 0
-                else:
-                    self.gr_A[a] = 0
-                    self.gr_B[a] = 1
-            elif self.gr_A[b] == -1:
-                if self.gr_A[a] == 0:
-                    self.gr_A[b] = 1
-                    self.gr_B[b] = 0
-                else:
-                    self.gr_A[b] = 0
-                    self.gr_B[b] = 1
-            else:
-                if not self.gr_A[a] ^ self.gr_A[b]:
-                    return False
-
-            if i < len(dislikes) - 1:
-                print(i)
-                if not traverse(dislikes[i + 1][0], dislikes[i + 1][1], i + 1):
-                    return traverse(dislikes[i + 1][1], dislikes[i + 1][0], i + 1)
+        if not dislikes:
             return True
 
-        return traverse(dislikes[0][0], dislikes[0][1], 0) or traverse(dislikes[0][1], dislikes[0][0], 0)
+        graph = collections.defaultdict(list)
+        colors = [-1]*(N + 1)
+        for node, nei in dislikes:
+            graph[node].append(nei)
+            graph[nei].append(node)
+
+        def traverse(node, color):
+            if colors[node] != -1:
+                return colors[node] == color
+            colors[node] = color
+            return all(traverse(nei, color ^ 1) for nei in graph[node])
+
+        return all(traverse(node, 0) for node in range(1, N + 1) if colors[node] == -1)
 
 
 def main():
