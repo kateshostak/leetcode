@@ -10,15 +10,9 @@ class Solution:
         def traverse(node):
             if not node:
                 return
-
-            tmp = node.left
-            node.left = node.right
-            node.right = tmp
-            traverse(node.left)
-            traverse(node.right)
-
-        traverse(root)
-        return root
+            node.left, node.right = traverse(node.right), traverse(node.left)
+            return node
+        return traverse(root)
 
     def as_arr(self, root):
         res = []
@@ -43,6 +37,7 @@ def main():
     root.right = TreeNode(7)
     root.right.left = TreeNode(6)
     root.right.right = TreeNode(9)
+
     sol = Solution()
     tree = sol.as_arr(root)
     res = sol.as_arr(sol.invertTree(root))
