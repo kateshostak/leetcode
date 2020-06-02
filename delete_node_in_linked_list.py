@@ -13,13 +13,8 @@ class Solution:
         :type node: ListNode
         :rtype: void Do not return anything, modify node in-place instead.
         """
-        tmp = node
-        while node.next:
-            node.val = node.next.val
-            node = node.next
-            if node.next:
-                tmp = tmp.next
-        tmp.next = None
+        if node.next:
+            node.val, node.next = node.next.val, node.next.next
 
     def as_arr(self, node):
         res = []
