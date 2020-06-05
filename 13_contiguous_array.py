@@ -20,13 +20,13 @@ class Solution:
         return maxlen
 
 def main():
-    # Input: [0,1]
-    # Output: 2
-
-    # Input: [0,1,0]
-    # Output: 2
     arr = [0, 1]
-    print(Solution().findMaxLength(arr))
+    res = Solution().findMaxLength(arr)
+    print(f'expected::2, got::{res}')
+
+    arr = [0, 1, 0]
+    res = Solution().findMaxLength(arr)
+    print(f'expected::2, got::{res}')
 
 
 if __name__ == '__main__':
