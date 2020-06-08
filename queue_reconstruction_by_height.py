@@ -15,14 +15,14 @@ class Solution:
         l = sorted(d, key=lambda x: d[x])
         head = None
         for person in d:
-
+            print(person[0])
             tmp = []
             i = 0
             node = head
             while node:
                 if node.arr[0] >= person[0]:
                     i += 1
-                    if i > person[0]:
+                    if i > person[1]:
                         break
                 node = node.next
 
