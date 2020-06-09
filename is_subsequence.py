@@ -1,33 +1,14 @@
-import pdb
-
-
 class Solution:
     def isSubsequence(self, s: str, t: str) -> bool:
         if len(s) > len(t):
             return False
-        d = {}
-        for i, letter in enumerate(t):
-            if letter not in d:
-                d[letter] = []
-            d[letter].append(i)
+        i = j = 0
+        while i < len(t) and j < len(t):
+            if t[i] == s[j]:
+                j += 1
+            i += 1
 
-        prev = -1
-        for letter in s:
-            if letter in d:
-                if prev > d[letter][-1]:
-                    return False
-                else:
-                    k = 0
-                    while k < (len(d[letter])) and d[letter][k] <= prev:
-                        k += 1
-                    if k < len(d[letter]):
-                        prev = d[letter][k]
-                    else:
-                        return False
-            else:
-                return False
-
-        return True
+        return j == len(s)
 
 
 def main():
