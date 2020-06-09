@@ -8,7 +8,7 @@ class Solution:
                 d[letter] = []
             d[letter].append(i)
 
-        curr = prev = 0
+        prev = 0
         for letter in s:
             if letter in d:
                 if prev > d[letter][-1]:
@@ -17,7 +17,7 @@ class Solution:
                     k = 0
                     while d[letter][k] < prev:
                         k += 1
-                    curr, prev = d[letter][k], curr
+                    prev = d[letter][k]
             else:
                 return False
 
