@@ -5,6 +5,14 @@ class Solution:
     def searchInsert(self, nums: List[int], target: int) -> int:
         start = 0
         end = len(nums) - 1
+
+        if target <= nums[0]:
+            return start
+        elif target > nums[-1]:
+            return end + 1
+        elif target == nums[-1]:
+            return end
+
         while end - start > 0:
             mid = (start + end)//2
             if nums[mid] < target:
