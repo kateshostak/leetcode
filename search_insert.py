@@ -4,16 +4,9 @@ from typing import List
 class Solution:
     def searchInsert(self, nums: List[int], target: int) -> int:
         start = 0
-        end = len(nums) - 1
+        end = len(nums)
 
-        if target <= nums[0]:
-            return start
-        elif target > nums[-1]:
-            return end + 1
-        elif target == nums[-1]:
-            return end
-
-        while end - start > 0:
+        while start < end:
             mid = (start + end)//2
             if nums[mid] < target:
                 start = mid + 1
@@ -21,9 +14,7 @@ class Solution:
                 end = mid
             else:
                 return mid
-        if target <= nums[end]:
-            return end
-        return end + 1
+        return end
 
 
 def main():
