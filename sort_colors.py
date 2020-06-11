@@ -14,6 +14,9 @@ class Solution:
                 i += 1
             elif nums[k] == 2 and k < j:
                 nums[j], nums[k] = nums[k], nums[j]
+                if nums[k] == 0:
+                    nums[k], nums[i] = nums[i], nums[k]
+                    i += 1
                 j -= 1
 
 
@@ -21,6 +24,10 @@ def main():
     nums = [2, 0, 2, 1, 1, 0]
     Solution().sortColors(nums)
     print(f'expected::[0, 0, 1, 1, 2, 2], got::{nums}')
+
+    nums = [1, 2, 0]
+    Solution().sortColors(nums)
+    print(f'expected::[0, 1, 2], got::{nums}')
 
 
 if __name__ == '__main__':
