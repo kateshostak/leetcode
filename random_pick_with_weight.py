@@ -1,4 +1,5 @@
 import random
+import bisect
 from typing import List
 
 
@@ -6,17 +7,16 @@ class Solution:
 
     def __init__(self, w: List[int]):
         self.w = w
+        sum_ = 0
+        self.part_sums = []
+        for elem in self.w:
+            sum_ += elem
+            self.part_sums.append(sum_)
         self.sum = sum(w)
 
     def pickIndex(self) -> int:
         j = random.randint(1, self.sum)
-        i = 0
-        while True:
-            j -= self.w[i]
-            if j <= 0:
-                return i
-            i += 1
-
+        return bisect.bisect_left(self.part_sums, j)
 
 def main():
     w = [1, 3]
