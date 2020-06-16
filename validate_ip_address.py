@@ -16,17 +16,13 @@ class Solution:
         return len(pack) < 4
 
     def check_cond(self, func_name, packs):
-        flag = True
-        for pack in packs:
-            flag &= getattr(self, func_name)(pack)
-        return flag
+        return all(getattr(self, func_name)(pack) for pack in packs)
 
     def check_ipv4(self, packs):
-        if self.check_cond('leading_zero', packs):
-            if self.check_cond('negative_number', packs):
-                if self.check_cond('less_than_256', packs):
-                    return True
-        return False
+        for pack in packs:
+            if pack[0] == 0 or pack[0] == '-' or int(pack) >= 256:
+                return False
+        return True
 
     def leading_zero(self, pack):
         return pack[0] != 0
