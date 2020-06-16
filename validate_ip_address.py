@@ -12,35 +12,30 @@ class Solution:
     def check_ipv6(self, packs):
         pass
 
-    def len_is_roght(self, pack):
+    def len_is_right(self, pack):
         return len(pack) < 4
 
-    def check_ipv4(self, packs):
+    def check_cond(self, func_name, packs):
         flag = True
         for pack in packs:
-            flag &= self.leading_zero(pack)
-        if not flag:
-            return False
+            flag &= getattr(self, func_name)(pack)
+        return flag
 
-        for pack in packs:
-            flag &= self.negative_number(pack)
-        if not flag:
-            return False
-
-        for pack in packs:
-            flag &= self.less_than_256(pack)
-        if not flag:
-            return False
-        return True
+    def check_ipv4(self, packs):
+        if self.check_cond('leading_zero', packs):
+            if self.check_cond('negative_number', packs):
+                if self.check_cond('less_than_256', packs):
+                    return True
+        return False
 
     def leading_zero(self, pack):
-        return pack[0] == 0
+        return pack[0] != 0
 
     def negative_number(self, pack):
-        return pack[0] == '-'
+        return pack[0] != '-'
 
     def less_than_256(self, pack):
-        return int(pack) >= 256
+        return int(pack) < 256
 
 
 def main():
