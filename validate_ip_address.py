@@ -10,30 +10,20 @@ class Solution:
             return "Neither"
 
     def is_ipv6(self, packs):
-        print('IPv6')
         for pack in packs:
             if len(pack) > 4:
-                print('Len is greater than 4')
                 return False
 
             if len(pack) == 0:
-                print('Pack is empty')
                 return False
 
             if pack[0] == '-':
-                print('Pack is negative')
                 return False
 
             if not pack.isalnum():
-                print('Not only alphanumerics in pack')
                 return False
 
-            if not pack.isdigit() and not(pack.islower() or pack.isupper()):
-                print(pack)
-                return False
-
-            if any(ord(letter) > 103 for letter in pack.lower()):
-                print('Pack is invalid hex')
+            if any(letter > 'f' for letter in pack.lower()):
                 return False
 
         return True
@@ -43,7 +33,7 @@ class Solution:
             if len(pack) == 0:
                 return False
 
-            if pack[0] == '0':
+            if pack[0] == '0' and len(pack) > 1:
                 return False
 
             if pack[0] == '-':
