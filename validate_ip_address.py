@@ -13,11 +13,14 @@ class Solution:
         for pack in packs:
             if len(pack) > 4 or len(pack) == 0 or pack[0] == '-' or not pack.isalnum():
                 return False
+            for letter in pack.lower():
+                if ord(letter) > 103:
+                    return False
         return True
 
     def is_ipv4(self, packs):
         for pack in packs:
-            if pack[0] == 0 or pack[0] == '-' or int(pack) >= 256:
+            if len(pack) == 0 or pack[0] == 0 or pack[0] == '-' or not pack.isdigit() or int(pack) >= 256:
                 return False
         return True
 
