@@ -4,10 +4,16 @@ class Solution:
         packs_2 = IP.split(':')
         if len(packs) == 4 and self.check_ipv4(packs):
             return "IPv4"
-        elif len(packs_2) == 8:
-            return self.check_ipv6(packs_2)
+        elif len(packs_2) == 8 and self.check_ipv6(packs_2):
+            return "IPv6"
         else:
             return "Neither"
+
+    def check_ipv6(self, packs):
+        pass
+
+    def len_is_roght(self, pack):
+        return len(pack) < 4
 
     def check_ipv4(self, packs):
         flag = True
@@ -28,19 +34,13 @@ class Solution:
         return True
 
     def leading_zero(self, pack):
-        if pack[0] == 0:
-            return False
-        return True
+        return pack[0] == 0
 
     def negative_number(self, pack):
-        if pack[0] == '-':
-            return False
-        return True
+        return pack[0] == '-'
 
     def less_than_256(self, pack):
-        if int(pack) >= 256:
-            return False
-        return True
+        return int(pack) >= 256
 
 
 def main():
