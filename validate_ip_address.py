@@ -1,27 +1,31 @@
 class Solution:
     def validIPAddress(self, IP: str) -> str:
         packs = IP.split('.')
-        if len(packs) == 4:
-            return self.check_ipv4(packs)
+        packs_2 = IP.split(':')
+        if len(packs) == 4 and self.check_ipv4(packs):
+            return "IPv4"
+        elif len(packs_2) == 8:
+            return self.check_ipv6(packs_2)
+        else:
+            return "Neither"
 
     def check_ipv4(self, packs):
         flag = True
         for pack in packs:
             flag &= self.leading_zero(pack)
         if not flag:
-            return "Neither"
+            return False
 
         for pack in packs:
             flag &= self.negative_number(pack)
         if not flag:
-            return "Neither"
+            return False
 
         for pack in packs:
             flag &= self.less_than_256(pack)
         if not flag:
-            return "Neither"
-
-        return "IPv4"
+            return False
+        return True
 
     def leading_zero(self, pack):
         if pack[0] == 0:
