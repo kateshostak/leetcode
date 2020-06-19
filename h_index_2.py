@@ -9,11 +9,11 @@ class Solution:
         max_ = 0
         while start < end:
             mid = (start + end)//2
-            print(max_)
             if citations[mid] < n - mid:
                 max_ = max(max_, citations[mid])
                 start = mid + 1
             elif citations[mid] > n - mid:
+                max_ = max(max_, n - mid)
                 end = mid
             else:
                 max_ = max(max_, citations[mid])
@@ -28,6 +28,15 @@ def main():
     citations = [11, 15]
     res = Solution().hIndex(citations)
     print(f'expected::2, got::{res}')
+
+    citations = [0]
+    res = Solution().hIndex(citations)
+    print(f'expected::0, got::{res}')
+
+    citations = [100]
+    res = Solution().hIndex(citations)
+    print(f'expected::1, got::{res}')
+
 
 if __name__ == '__main__':
     main()
