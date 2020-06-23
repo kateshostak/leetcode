@@ -7,18 +7,16 @@ class TreeNode:
 
 class Solution:
     def countNodes(self, root: TreeNode) -> int:
+        self.i = 0
         def traverse(node, i):
-            i += 1
-            if node.left:
-                return traverse(node.left, i)
-            elif node.right:
-                return traverse(node.right, i)
-            else:
+            if not node:
+                return
+            self.i += 1
+            traverse(node.left, i)
+            traverse(node.right, i)
 
-                return i
-
-        return traverse(root, 0)
-
+        traverse(root, 0)
+        return self.i
 
 def main():
     root = TreeNode(1)
