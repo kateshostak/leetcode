@@ -7,7 +7,20 @@ class TreeNode:
 
 class Solution:
     def sumNumbers(self, root: TreeNode) -> int:
-        pass
+        self.sum_ = 0
+
+        def traverse(node, curr_number):
+            curr_number = 10 * curr_number + node.val
+            if node.left:
+                traverse(node.left, curr_number)
+            if node.right:
+                traverse(node.right, curr_number)
+            if not(node.right or node.left):
+                self.sum_ += curr_number
+                return
+        if root:
+            traverse(root, 0)
+        return self.sum_
 
 
 def main():
@@ -16,3 +29,7 @@ def main():
     root.right = TreeNode(3)
     res = Solution().sumNumbers(root)
     print(f'expected::25, got::{res}')
+
+
+if __name__ == '__main__':
+    main()
