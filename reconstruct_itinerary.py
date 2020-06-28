@@ -6,18 +6,20 @@ class Solution:
         d = {}
         for start, end in tickets:
             if start not in d:
-                d[start] = end
-            else:
-                if d[start] > end:
-                    d[start] = end
+                d[start] = []
+            d[start].append(end)
+            d[start].sort()
 
-        res = {}
-        start = sorted(d)[0]
-        while start in d and start not in res:
-            res[start] = 0
-            start = d[start]
-        res[start] = 0
-        return res.keys()
+        res = []
+        start = 'JFK'
+        while start in d:
+            res.append(start)
+            if d[start]:
+                start = d[start].pop()
+            else:
+                break
+        res.append(start)
+        return res
 
 
 def main():
