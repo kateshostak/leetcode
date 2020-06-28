@@ -15,10 +15,11 @@ class Solution:
         while start in d:
             res.append(start)
             if d[start]:
-                start = d[start].pop()
+                start = d[start].pop(0)
             else:
                 break
-        res.append(start)
+        if res[-1] != start:
+            res.append(start)
         return res
 
 
@@ -29,7 +30,7 @@ def main():
 
     tickets = [["JFK", "SFO"], ["JFK", "ATL"], ["SFO", "ATL"], ["ATL", "JFK"], ["ATL", "SFO"]]
     res = Solution().findItinerary(tickets)
-    print(f'expected::["JFK", "MUC", "LHR", "SFO", "SJC"], got::{res}')
+    print(f'expected::["JFK","ATL","JFK","SFO","ATL","SFO"], got::{res}')
 
 
 if __name__ == '__main__':
