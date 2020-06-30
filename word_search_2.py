@@ -22,8 +22,12 @@ class Solution:
             return a or b or c or d
         res = []
         for word in words:
-            if traverse(word, 0, 0, 0):
-                res.append(word)
+            for i in range(len(board)):
+                for j in range(len(board[0])):
+                    if board[i][j] == word[0]:
+                        if traverse(word, i, j, 0):
+                            res.append(word)
+                            break
         return res
 
 
