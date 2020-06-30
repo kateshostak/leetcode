@@ -3,6 +3,12 @@ from typing import List
 
 class Solution:
     def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
+        d = {}
+        for word in words:
+            if word[0] not in d:
+                d[word[0]] = []
+            d[word[0]].append(word)
+
         def traverse(word, i, j, k):
             if k == len(word):
                 return True
@@ -20,14 +26,17 @@ class Solution:
             d = traverse(word, i, j - 1, k + 1)
             board[i][j] = tmp
             return a or b or c or d
+
         res = []
-        for word in words:
-            for i in range(len(board)):
-                for j in range(len(board[0])):
-                    if board[i][j] == word[0]:
-                        if traverse(word, i, j, 0):
-                            res.append(word)
-                            break
+        for i in range(len(board)):
+            for j in range(len(board[0])):
+                letter = board[i][j]
+                if letter in d:
+                    for k, word in enumerate(d[letter]):
+                        if word is not None:
+                            if traverse(word, i, j, 0):
+                                res.append(word)
+                                d[letter][k] = None
         return res
 
 
