@@ -12,7 +12,7 @@ class Solution:
 
         res = []
         start = 'JFK'
-
+        last_ = None
         while True:
             changed = False
             res.append(start)
@@ -25,9 +25,11 @@ class Solution:
                     break
                 else:
                     if elem != None:
-                        res.append(elem)
+                        last_ = elem
             if not changed:
                 break
+        if last_:
+            res.append(last_)
         return res
 
 
