@@ -3,24 +3,8 @@ from typing import List
 
 class Solution:
     def plusOne(self, digits: List[int]) -> List[int]:
-        res = []
-        carry = 1
-        if digits[-1] < 9:
-            digits[-1] += 1
-            return digits
-
-        for i in range(len(digits) - 1, -1, -1):
-            tmp = digits[i] + carry
-            if tmp == 10:
-                carry = 1
-            else:
-                carry = 0
-
-            res.append(tmp % 10)
-        if carry:
-            res.append(1)
-        res.reverse()
-        return res
+        a = int(''.join(map(str, digits))) + 1
+        return [int(elem) for elem in str(a)]
 
 
 def main():
