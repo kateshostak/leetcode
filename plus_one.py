@@ -19,8 +19,8 @@ class Solution:
             res.append(tmp % 10)
         if carry:
             res.append(1)
-            res.reverse()
-            return res
+        res.reverse()
+        return res
 
 
 def main():
@@ -31,6 +31,10 @@ def main():
     digits = [9, 9, 9]
     res = Solution().plusOne(digits)
     print(f'expected::[1, 0, 0, 0], got::{res}')
+
+    digits = [8, 9, 9, 9]
+    res = Solution().plusOne(digits)
+    print(f'expected::[9, 0, 0, 0], got::{res}')
 
 
 if __name__ == '__main__':
