@@ -8,16 +8,22 @@ class TreeNode:
 class Solution:
     def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
         def traverse(node1, node2):
+            if not node1 and not node2:
+                return True
+            if not node1 or not node2:
+                return False
             if node1.val != node2.val:
                 return False
 
             if node1.right and node2.right:
-                traverse(node1.right, node2.right)
+                if not traverse(node1.right, node2.right):
+                    return False
             elif node1.right or node2.right:
                 return False
 
             if node1.left and node2.left:
-                traverse(node1.left, node2.left)
+                if not traverse(node1.left, node2.left):
+                    return False
             elif node1.left or node2.left:
                 return False
 
@@ -26,17 +32,17 @@ class Solution:
         return traverse(p, q)
 
 
-def tree_maker():
+def main():
     p = TreeNode(1)
     p.left = TreeNode(2)
-    p.right = TreeNode(3)
-    return p
+    p.right = TreeNode(1)
 
+    q = TreeNode(1)
+    q.left = TreeNode(1)
+    q.right = TreeNode(2)
 
-def main():
-    p, q = tree_maker(), tree_maker()
     res = Solution().isSameTree(p, q)
-    print(f'expected::True, got::{res}')
+    print(f'expected::False, got::{res}')
 
 
 if __name__ == '__main__':
