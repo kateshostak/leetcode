@@ -10,21 +10,20 @@ class Solution:
         def traverse(node1, node2):
             if not node1 and not node2:
                 return True
-            if not node1 or not node2:
+
+            if not node1 and node2:
                 return False
+
+            if node1 and not node2:
+                return False
+
             if node1.val != node2.val:
                 return False
 
-            if node1.right and node2.right:
-                if not traverse(node1.right, node2.right):
-                    return False
-            elif node1.right or node2.right:
+            if not traverse(node1.right, node2.right):
                 return False
 
-            if node1.left and node2.left:
-                if not traverse(node1.left, node2.left):
-                    return False
-            elif node1.left or node2.left:
+            if not traverse(node1.left, node2.left):
                 return False
 
             return True
