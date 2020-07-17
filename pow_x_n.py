@@ -1,21 +1,18 @@
 class Solution:
     def myPow(self, x: float, n: int) -> float:
-        res = 1
-        if n % 2 == 1:
+        def traverse(x, n):
+            if n == 0:
+                return 1
             if n < 0:
-                res /= x
-            else:
-                res *= x
+                return 1 / traverse(x, -n)
 
-        b = format(n, 'b')
-        for i in range(len(b) - 2, -1, -1):
-            x *= x
-            if b[i] == '1':
-                if n < 0:
-                    res /= x
-                else:
-                    res *= x
-        return res
+            if n == 1:
+                return x
+            if n % 2 == 1:
+                return x * traverse(x, n - 1)
+            s = traverse(x, n // 2)
+            return s * s
+        return traverse(x, n)
 
 
 def main():
