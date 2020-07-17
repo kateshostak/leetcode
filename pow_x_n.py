@@ -10,8 +10,7 @@ class Solution:
                 return x
             if n % 2 == 1:
                 return x * traverse(x, n - 1)
-            s = traverse(x, n // 2)
-            return s * s
+            return traverse(x, n // 2)**2
         return traverse(x, n)
 
 
