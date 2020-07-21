@@ -4,32 +4,30 @@ from typing import List
 class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
         def traverse(i, j, k):
+            if k >= len(word):
+                return False
+
             if board[i][j] == '#' or board[i][j] != word[k]:
                 return False
+
             if k == len(word) - 1:
                 return True
+
             tmp = board[i][j]
             board[i][j] = '#'
-            if k + 1 < len(word):
-                if i + 1 < len(board):
-                    if traverse(i + 1, j, k + 1):
-                        board[i][j] = tmp
-                        return True
 
-                if i - 1 >= 0:
-                    if traverse(i - 1, j, k + 1):
-                        board[i][j] = tmp
-                        return True
+            if i + 1 < len(board) and traverse(i + 1, j, k + 1):
+                return True
 
-                if j + 1 < len(board[0]):
-                    if traverse(i, j + 1, k + 1):
-                        board[i][j] = tmp
-                        return True
+            if i - 1 >= 0 and traverse(i - 1, j, k + 1):
+                return True
 
-                if j - 1 >= 0:
-                    if traverse(i, j - 1, k + 1):
-                        board[i][j] = tmp
-                        return True
+            if j + 1 < len(board[0]) and traverse(i, j + 1, k + 1):
+                return True
+
+            if j - 1 >= 0 and traverse(i, j - 1, k + 1):
+                return True
+
             board[i][j] = tmp
             return False
 
