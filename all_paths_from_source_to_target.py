@@ -3,19 +3,15 @@ from typing import List
 
 class Solution:
     def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
-        tmp = []
         paths = []
 
-        def traverse(node):
-            tmp.append(node)
+        def traverse(node, tmp):
             if node == len(graph) - 1:
-                paths.append(tmp.copy())
+                paths.append(tmp)
 
             for elem in graph[node]:
-                traverse(elem)
-                if tmp:
-                    tmp.pop(-1)
-        traverse(0)
+                traverse(elem, tmp + [elem])
+        traverse(0, [0])
         return paths
 
 
