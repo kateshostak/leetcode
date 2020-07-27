@@ -1,4 +1,5 @@
 from typing import List
+import pdb
 
 
 class TreeNode:
@@ -10,14 +11,24 @@ class TreeNode:
 
 class Solution:
     def buildTree(self, inorder: List[int], postorder: List[int]) -> TreeNode:
-        def traverse(i):
-            if i > len(postorder):
+        postorder.reverse()
+        root_val = postorder[0]
+        root_val_ind = inorder.index(root_val)
+        left_tree_val = inorder[root_val_ind - 1]
+        j = postorder.index(left_tree_val)
+        def traverse(i, j):
+            if i >= j:
                 return None
             node = TreeNode(postorder[i])
-            node.left = traverse(i*2 + 1)
-            node.right = traverse(i*2 + 2)
+            node.left = traverse(i*2 + 1, j)
+            node.right = traverse(i*2 + 2, j)
             return node
-        root = traverse(0)
+        root = TreeNode(root_val)
+        root.right = traverse(0, j)
+        root.left = traverse(j, len(postorder))
+        print(root.val)
+        print(root.left.val)
+        print(root.right.val)
         print(self.inorder(root))
 
     def inorder(self, root):
@@ -34,8 +45,9 @@ class Solution:
 
 
 def main():
+    inorder = [9, 3, 15, 20, 7]
     postorder = [9, 15, 7, 20, 3]
-    Solution().buildTree(postorder)
+    Solution().buildTree(inorder, postorder)
 
 
 if __name__ == '__main__':
