@@ -35,10 +35,6 @@ def main():
     res = Solution().longestPalindrome(s)
     print(f'expected::3, got::{res}')
 
-    s = input()
-    res = Solution().longestPalindrome(s)
-    print(f'expected::983, got::{res}')
-
 
 if __name__ == '__main__':
     main()
