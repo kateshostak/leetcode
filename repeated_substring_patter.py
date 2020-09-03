@@ -1,15 +1,20 @@
+import pdb
+
+
 class Solution:
     def repeatedSubstringPattern(self, s: str) -> bool:
+        if len(s) <= 1:
+            return False
         if s[-1]*len(s) == s:
             return True
         start = 0
         end = len(s) - 1
         while start < len(s):
-            i = s[start:].find(s[-1])
+            i = s[start:].find(s[-1]) + start
             j = end
             if i == j or i == 0:
                 return False
-            start += i + 1
+            start = i + 1
             while True:
                 if i == -1:
                     break
@@ -26,7 +31,7 @@ class Solution:
 
     def check_subs(self, s, start):
         subs = s[:start]
-        i = start + 1
+        i = start
         j = 0
         while i < len(s):
             j %= len(subs)
@@ -50,7 +55,8 @@ def main():
     res = Solution().repeatedSubstringPattern(s)
     print(f'expected::False, got::{res}')
 
-    s = 'abab'
+    s = 'abaababaab'
+    # pdb.set_trace()
     res = Solution().repeatedSubstringPattern(s)
     print(f'expected::True, got::{res}')
 
