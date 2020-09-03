@@ -1,5 +1,7 @@
 class Solution:
     def repeatedSubstringPattern(self, s: str) -> bool:
+        if s[-1]*len(s) == s:
+            return True
         start = 0
         end = len(s) - 1
         while start < len(s):
