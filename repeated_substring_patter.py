@@ -1,8 +1,7 @@
 class Solution:
     def repeatedSubstringPattern(self, s: str) -> bool:
-        tmp = s
-        s += s
-        return s[1:-1].find(tmp) != -1
+        return s in (s * 2)[1:-1]
+
 
 def main():
     s = 'abcabcabcabc'
