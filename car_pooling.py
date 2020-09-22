@@ -6,11 +6,13 @@ class Solution:
         buckets = [0]*1001
         for trip in trips:
             passengers, start, end = trip
-            for i in range(start, end):
-                buckets[i] += passengers
+            buckets[start] += passengers
+            buckets[end] -= passengers
 
+        used_cap = 0
         for elem in buckets:
-            if elem > capacity:
+            used_cap += elem
+            if used_cap > capacity:
                 return False
 
         return True
