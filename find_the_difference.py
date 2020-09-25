@@ -1,6 +1,14 @@
+import collections
+
+
 class Solution:
     def findTheDifference(self, s: str, t: str) -> str:
-        return set(t).difference(set(s)).pop()
+        c1 = collections.Counter(s)
+        c2 = collections.Counter(t)
+        c2.subtract(c1)
+        for key, value in c2.items():
+            if value > 0:
+                return key
 
 
 def main():
