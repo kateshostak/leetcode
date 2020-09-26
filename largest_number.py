@@ -7,18 +7,18 @@ class Solution:
         tmp = []
         max_ = ''
         for elem in nums:
-            print(max_)
             tmp.append(elem)
             j = -1
             for i in range(len(tmp)):
                 tmp[-1 - i], tmp[j] = tmp[j], tmp[-1 - i]
                 new = ''.join(map(str, tmp))
-                print(f'i::{i}, new::{new}')
                 if new > max_:
                     j = -1 - i
                     max_ = new
                 else:
                     tmp[-1 - i], tmp[j] = tmp[j], tmp[-1 - i]
+            if max_[0] == 0:
+                return '0'
         return max_
 
 
