@@ -5,13 +5,9 @@ class RecentCounter:
 
     def ping(self, t: int) -> int:
         self.arr.append(t)
-        start = t - 3000
-        i = len(self.arr) - 1
-        res = 0
-        while i >= 0 and self.arr[i] >= start:
-            res += 1
-            i -= 1
-        return res
+        while self.arr[0] < t - 3000:
+            self.arr.pop(0)
+        return len(self.arr)
 
 
 def main():
