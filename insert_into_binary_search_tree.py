@@ -19,7 +19,7 @@ class Solution:
 
         return traverse(root)
 
-    def print_(self, node):
+    def print_tree(self, node):
         def traverse(node):
             if not node:
                 return
@@ -39,7 +39,7 @@ def main():
     val = 5
     tree = Solution()
     tree.insertIntoBST(root, val)
-    tree.print_(root)
+    tree.print_tree(root)
 
 
 if __name__ == '__main__':
