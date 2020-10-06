@@ -1,5 +1,8 @@
 class Solution:
     def bitwiseComplement(self, N: int) -> int:
+        if N == 0:
+            return 1
+
         i = 0
         tmp = N
         while tmp > 0:
