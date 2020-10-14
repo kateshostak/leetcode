@@ -7,26 +7,24 @@ class TreeNode:
 
 class Codec:
     def serialize(self, root: TreeNode) -> str:
+        self.s = ''
 
-        self.tmp = []
-
-        def traverse(self, node):
+        def traverse(node):
             if node is None:
                 return
 
-            self.tmp.append(node.val)
+            self.s += str(node.val)
+            self.s += ' '
             traverse(node.left)
             traverse(node.right)
 
-        s = ''
-        for elem in self.tmp:
-            s += str(elem) + ' '
-
-        return s
+        traverse(root)
+        print(f's::{self.s}')
+        return self.s
 
     def deserialize(self, data: str) -> TreeNode:
         tmp = data.split(' ')
-        self.root = tmp[0]
+        self.root = TreeNode(tmp[0])
 
         def add_node(val):
             curr = self.root
@@ -42,7 +40,32 @@ class Codec:
                         curr.right = TreeNode(val)
                         break
                     curr = curr.right
-            for i in range(1, len(tmp)):
-                add_node(tmp[i])
+        for i in range(1, len(tmp)):
+            add_node(tmp[i])
 
-            return self.root
+        return self.root
+
+
+def preorder(root):
+    def traverse(node):
+        if node is None:
+            return
+        print(node.val, end=' ')
+        traverse(node.left)
+        traverse(node.right)
+    traverse(root)
+
+
+def main():
+    root = TreeNode(2)
+    root.left = TreeNode(1)
+    root.right = TreeNode(3)
+    ser = Codec()
+    deser = Codec()
+    tree_str = ser.serialize(root)
+    ans_root = deser.deserialize(tree_str)
+    preorder(ans_root)
+
+
+if __name__ == '__main__':
+    main()
