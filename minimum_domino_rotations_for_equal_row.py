@@ -8,23 +8,24 @@ class Solution:
         r = 0
         prev1 = A[0]
         prev2 = B[0]
-        print(*list(range(len(A))))
-        print(*A)
-        print(*B)
         for i in range(1, len(A)):
-            if A[i] == prev1:
+            if A[i] == prev1 and B[i] == prev2:
                 continue
-            if B[i] == prev2:
+            if A[i] == prev1 and B[i] != prev2:
+                prev2 = None
+                continue
+            if B[i] == prev2 and A[i] != prev1:
+                prev1 = None
                 continue
             if A[i] == prev2:
-                print(i)
-                prev2 = A[i]
                 r += 1
+                if B[i] != prev1:
+                    prev1 = None
                 continue
             if B[i] == prev1:
-                print(i)
-                prev1 = B[i]
                 r += 1
+                if A[i] != prev2:
+                    prev2 = None
                 continue
             return -1
         return r
