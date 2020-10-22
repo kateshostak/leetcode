@@ -3,12 +3,11 @@ from typing import List
 
 class Solution:
     def minDominoRotations(self, A: List[int], B: List[int]) -> int:
-        if len(A) <= 1:
+        if len(A) == 0:
             return -1
 
         def find_min(prev1, prev2):
-            r1 = 0
-            r2 = 0
+            r1 = r2 = 0
             for i in range(1, len(A)):
                 if A[i] != prev1:
                     if B[i] != prev1:
@@ -31,7 +30,7 @@ class Solution:
             if r2 is None:
                 return r1
             return min(r1, r2)
-        return min(find_min(A[0], B[0]), find_min(B[0], A[0]))
+        return min(find_min(A[0], B[0]), 1 + find_min(B[0], A[0]))
 
 
 def main():
