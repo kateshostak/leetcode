@@ -18,14 +18,18 @@ class Solution:
         prev = head
         curr = head.next
         while curr:
+            print(head)
             curr.next, prev.next = head, curr.next
             head = curr
-
+            print(head)
+            print()
             tmp = head.next
             tmp_prev = head
             key = prev.next
+            new_prev = None
             while tmp and head.val > tmp.val:
                 if tmp == key:
+                    new_prev = head
                     break
                 tmp, tmp_prev = tmp.next, tmp
 
@@ -33,17 +37,14 @@ class Solution:
                 curr = prev.next
                 continue
 
-            if tmp is None:
-                tmp.next = head
-                head = head.next
-                tmp.next.next = None
-                return head
-
-            # pdb.set_trace()
+            curr = prev.next
+            if new_prev:
+                prev = new_prev
+            print(prev)
+            print()
             tmp_head = head.next
             tmp_prev.next, head.next = head, tmp
             head = tmp_head
-            curr = prev.next
         return head
 
 
@@ -66,7 +67,10 @@ def print_list(node):
 
 
 def main():
-    head = list_maker([4, 2, 1, 3])
+    # head = list_maker([4, 2, 1, 3])
+    # print_list(Solution().insertionSortList(head))
+
+    head = list_maker([-1, 5, 3, 4, 0])
     print_list(Solution().insertionSortList(head))
 
 
